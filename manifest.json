@@ -2,12 +2,18 @@
   "name": "QR Code Generate",
   "version": "0.5",
   "description": "Build QR Code Generate to shave link between any devices",
-  "permissions": ["declarativeContent", "storage"],
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "tabs",
+    "activeTab",
+    "contextMenus"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "assets/images/get_started16.png",

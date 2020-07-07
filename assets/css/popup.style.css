@@ -102,22 +102,6 @@ body {
   border-color: black;
 }
 
-button#qrcode-regenerate {
-  margin: 29px auto 0;
-  cursor: pointer;
-  padding: 11px 35px;
-  font-size: 18px;
-  font-weight: bold;
-  display: block;
-  border-radius: 50px;
-}
-button#qrcode-regenerate:hover {
-  color: #ff6;
-}
-button#qrcode-regenerate:active {
-  color: #ff6;
-  background: #339;
-}
 #qrcode-img-buffer {
   display: none;
 }

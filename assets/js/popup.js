@@ -131,6 +131,9 @@ $(function () {
   }
 
   removeStatusBar();
+
+  $('#btn_save_qr').click(() => saveQRCode());
+
 });
 
 function renderQRHandler() {
@@ -261,7 +264,9 @@ function removeStatusBar() {
   }, 0);
 }
 
-function trackContent(c) {
-  // chrome.extension.sendMessage({pop: c}, function(response) {
-  // });
+function saveQRCode() {
+  var qr_tag_download = document.createElement('a');
+  qr_tag_download.href = $('#qrcode-img img')[0].src;
+  qr_tag_download.download = 'qr_code.png';
+  qr_tag_download.click();
 }

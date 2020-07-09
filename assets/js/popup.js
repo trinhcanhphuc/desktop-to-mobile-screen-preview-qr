@@ -7,124 +7,99 @@ var QQRV = chrome.app.getDetails().version;
 window.FIXED_POPUP = false;
 
 $(function () {
-  $("[i18n-w]").each(function () {
-    var m = $(this).attr("i18n-w");
+  $('[i18n-w]').each(function () {
+    var m = $(this).attr('i18n-w');
     var t = chrome.i18n.getMessage(m);
     $(this).text(t);
   });
-  document.title = chrome.i18n.getMessage("app_name");
-  if (chrome.i18n.getUILanguage() == "ja") {
-    $("head").append(
-      "<style>.high-qr a{color:#333;padding: 12px 8px 2px;border-radius:18px;text-decoration:none;margin:0 2px}</style>"
+  document.title = chrome.i18n.getMessage('app_name');
+  if (chrome.i18n.getUILanguage() == 'ja') {
+    $('head').append(
+      '<style>.high-qr a{color:#333;padding: 12px 8px 2px;border-radius:18px;text-decoration:none;margin:0 2px}</style>'
     );
   }
-  if (chrome.i18n.getUILanguage().includes("zh")) {
-    $("head").append(
-      "<style>.high-qr a{margin:0 2px}.high-qr a span{transform:scale(0.833);.high-qr span{margin-top:0}</style>"
+  if (chrome.i18n.getUILanguage().includes('zh')) {
+    $('head').append(
+      '<style>.high-qr a{margin:0 2px}.high-qr a span{transform:scale(0.833);.high-qr span{margin-top:0}</style>'
     );
   }
 
-  var config_obj = JSON.parse(localStorage.getItem("config")) || {};
-  fore_bg = config_obj.fore_bg || "#000000";
-  back_bg = config_obj.back_bg || "#ffffff";
-  img_size = config_obj.size || 600;
+  var config_obj = JSON.parse(localStorage.getItem('config')) || {};
+  fore_bg = config_obj.fore_bg || '#000000';
+  back_bg = config_obj.back_bg || '#ffffff';
+  img_size = config_obj.size || 300;
   is_transparnet_bg = config_obj.is_transparnet_bg;
 
   setTimeout(function () {
-    $("#qrcode-href").css("visibility", "visible").focus().select();
+    $('#qrcode-href').css('visibility', 'visible').focus().select();
   }, 99);
 
   chrome.tabs.query({ active: true, currentWindow: true }, updateContentByTabs);
-  $("#qrcode-regenerate").click(function () {
+  $('#qrcode-regenerate').click(function () {
     renderQRHandler();
     if (window.FIXED_POPUP) {
       return;
     }
-    $("#qrcode-img").css("opacity", 0);
-    $("#qrcode-img").animate({ opacity: 1 }, 222, function (t) {
+    $('#qrcode-img').css('opacity', 0);
+    $('#qrcode-img').animate({ opacity: 1 }, 222, function (t) {
       return t * (2 - t);
     });
   });
-  $("#version").text(chrome.app.getDetails().version);
-  $("#credit_get").click(function () {
-    trackContent(QQRV + "/pop/get_this");
+  $('#version').text(chrome.app.getDetails().version);
+  $('#credit_get').click(function () {
+    trackContent(QQRV + '/pop/get_this');
   });
-  $("#credit_support").click(function () {
-    trackContent(QQRV + "/pop/support");
+  $('#credit_support').click(function () {
+    trackContent(QQRV + '/pop/support');
   });
-  $("#export").click(function () {
-    trackContent(QQRV + "/pop/export");
+  $('#export').click(function () {
+    trackContent(QQRV + '/pop/export');
   });
-  $(".hd").click(function () {
-    trackContent(QQRV + "/pop/hd");
+  $('.hd').click(function () {
+    trackContent(QQRV + '/pop/hd');
   });
-  $(".withlogo").click(function () {
-    trackContent(QQRV + "/pop/withlogo");
+  $('.withlogo').click(function () {
+    trackContent(QQRV + '/pop/withlogo');
   });
-  $("#qrcode-regenerate").click(function () {
-    trackContent(QQRV + "/pop/regenerate");
-  });
-  $("#fixed_pop").click(function () {
-    trackContent(QQRV + "/pop/fixed");
-    var pop_width = 370; //$(window).width();
-    var pop_height = $(window).height() + 23;
-    var left = (screen.width - pop_width) * 0.97;
-    var top = 50;
-    var windowName = "popUpWindow";
-    if (localStorage.getItem("adv-config-m_fixed") == "1") {
-      windowName += Math.random();
-    }
-    window.open(
-      location.href + "#fixed," + $("#qrcode-href").val(),
-      windowName,
-      "scrollbars=no,resizable=no,titlebar=no,toolbar=no," +
-        "menubar=no,location=no,directories=no,status=no," +
-        "width=" +
-        pop_width +
-        ",height=" +
-        pop_height +
-        ",top=" +
-        top +
-        ", left=" +
-        left
-    );
+  $('#qrcode-regenerate').click(function () {
+    trackContent(QQRV + '/pop/regenerate');
   });
   // Not firing when paste by mouse.
-  $("#qrcode-href").on("keydown keyup input contextmenu", function (e) {
+  $('#qrcode-href').on('keydown keyup input contextmenu', function (e) {
     renderQRHandler();
   });
 
-  if (window.location.search.includes("?c=")) {
-    $("body").css("margin", "0 auto");
-    $("body").css("height", "auto");
-    $("#settings").hide();
-    $("#ctxt-only").show();
-    $(".popup-footer-right").appendTo("body").addClass("ctxt-only-style");
-    var c = window.location.search.split("?c=")[1];
+  if (window.location.search.includes('?c=')) {
+    $('body').css('margin', '0 auto');
+    $('body').css('height', 'auto');
+    $('#settings').hide();
+    $('#ctxt-only').show();
+    $('.popup-footer-right').appendTo('body').addClass('ctxt-only-style');
+    var c = window.location.search.split('?c=')[1];
     c = decodeURIComponent(c);
     var check = setInterval(function () {
-      if ($("#qrcode-href")) {
-        $("#qrcode-href").val(c);
-        $("#qrcode-regenerate").click();
+      if ($('#qrcode-href')) {
+        $('#qrcode-href').val(c);
+        $('#qrcode-regenerate').click();
         clearInterval(check);
       }
     }, 99);
   }
 
   // Check if the popup is in fixed mode
-  if (!window.location.href.includes("#fixed,")) {
-    $("#fixed_pop").show();
+  if (!window.location.href.includes('#fixed,')) {
+    $('#fixed_pop').show();
   } else {
     // In a fixed up mode
-    $("body").css("width", "auto");
-    var qr_string = location.href.split("#fixed,")[1];
-    $("#settings").attr("href", "options.html#fixed," + qr_string);
+    $('body').css('width', 'auto');
+    var qr_string = location.href.split('#fixed,')[1];
+    $('#settings').attr('href', 'options.html#fixed,' + qr_string);
     window.FIXED_POPUP = true;
-    $("#qrcode-href").val(qr_string);
+    $('#qrcode-href').val(qr_string);
     var check = setInterval(function () {
-      if ($("#qrcode-href")) {
-        $("#qrcode-href").val(qr_string);
-        $("#qrcode-regenerate").click();
+      if ($('#qrcode-href')) {
+        $('#qrcode-href').val(qr_string);
+        $('#qrcode-regenerate').click();
         clearInterval(check);
       }
     }, 99);
@@ -132,45 +107,42 @@ $(function () {
 
   removeStatusBar();
 
-  $("#btn_save_qr").click(() => saveQRCode());
+  $('#btn_save_qr').click(() => saveQRCode());
 });
 
 function renderQRHandler() {
-  var href = $("#qrcode-href").val();
-  var $qrcode_img = $("#qrcode-img");
-  $qrcode_img.html("");
+  var href = $('#qrcode-href').val();
+  var $qrcode_img = $('#qrcode-img');
+  $qrcode_img.html('');
   renderQR($qrcode_img, img_size, href);
   updateImgHref();
 }
 function updateContentByTabs(tabs) {
   getCurrentTabUrl().then((current_url) => {
     var title = tabs[0].title;
-    var $qrcode_img = $("#qrcode-img");
+    var $qrcode_img = $('#qrcode-img');
     setTimeout(function () {
-      $qrcode_img.html("");
+      $qrcode_img.html('');
       renderQR($qrcode_img, img_size, current_url);
       updateImgHref();
     }, 20);
-    $("#qrcode-href").val(current_url);
+    $('#qrcode-href').val(current_url);
   })
 }
 function renderQR($el, the_size, the_text) {
-  var quiet = "0";
-  if (back_bg != "#ffffff") {
-    quiet = "1";
+  var quiet = '0';
+  if (back_bg != '#ffffff') {
+    quiet = '1';
   }
   if (is_transparnet_bg) {
     back_bg = null;
   }
   $el.qrcode(qrObjectBuilder(the_size, fore_bg, the_text, back_bg, quiet));
-  $("#qrcode-img-buffer")
-    .empty()
-    .qrcode(qrObjectBuilder(the_size, fore_bg, the_text, back_bg, 0, true));
 }
 function qrObjectBuilder(s, f, t, b, q, c) {
-  var r = "image";
+  var r = 'image';
   if (c) {
-    r = "canvas";
+    r = 'canvas';
   }
   var o = {
     render: r,
@@ -180,83 +152,84 @@ function qrObjectBuilder(s, f, t, b, q, c) {
     background: b,
     quiet: q,
   };
-  o.ecLevel = "L";
+  o.ecLevel = 'L';
   return o;
 }
 function updateImgHref() {
-  var link = $("#export")[0];
-  link.download = "exported_qrcode_image_" + img_size + ".png";
-  link.href = $("#qrcode-img-buffer > canvas")[0].toDataURL();
+  var link = $('#export')[0];
+  if(link) {
+    link.download = 'exported_qrcode_image_' + img_size + '.png';
+  }
 }
 
-var init_text = chrome.i18n.getMessage("saveimg");
-$("body").on("mouseover", "#export", function () {
-  var $svg = $(this).find("svg");
-  $svg.find("#svg_text").text(img_size);
-  $svg.find("#toggle_arrow").hide();
+var init_text = chrome.i18n.getMessage('saveimg');
+$('body').on('mouseover', '#export', function () {
+  var $svg = $(this).find('svg');
+  $svg.find('#svg_text').text(img_size);
+  $svg.find('#toggle_arrow').hide();
 
   // $(this).text(init_text + ' (' + img_size + 'x' + img_size + ')');
 });
-$("body").on("mouseout", "#export", function () {
+$('body').on('mouseout', '#export', function () {
   // $(this).text(init_text);
-  var $svg = $(this).find("svg");
-  $svg.find("#svg_text").text("");
-  $svg.find("#toggle_arrow").show();
+  var $svg = $(this).find('svg');
+  $svg.find('#svg_text').text('');
+  $svg.find('#toggle_arrow').show();
 });
 
-$("body").on("mouseover", ".withlogo", function () {
-  var $svg = $(this).find("svg");
+$('body').on('mouseover', '.withlogo', function () {
+  var $svg = $(this).find('svg');
   $svg
-    .find("#svg_logo_anchor")
-    .attr("transform", "matrix( 1, 0, 0, 1, -506,-236)");
+    .find('#svg_logo_anchor')
+    .attr('transform', 'matrix( 1, 0, 0, 1, -506,-236)');
 });
-$("body").on("mouseout", ".withlogo", function () {
-  var $svg = $(this).find("svg");
+$('body').on('mouseout', '.withlogo', function () {
+  var $svg = $(this).find('svg');
   $svg
-    .find("#svg_logo_anchor")
-    .attr("transform", "matrix( 1, 0, 0, 1, -536,-226)");
+    .find('#svg_logo_anchor')
+    .attr('transform', 'matrix( 1, 0, 0, 1, -536,-226)');
 });
 
-$("body").on("mouseover", ".hd", function () {
-  var $svg = $(this).find("svg");
+$('body').on('mouseover', '.hd', function () {
+  var $svg = $(this).find('svg');
   $svg
-    .find("#svg_hd_anchor")
-    .attr("transform", "matrix( 1, 0, 0, 1, -303,-163)");
+    .find('#svg_hd_anchor')
+    .attr('transform', 'matrix( 1, 0, 0, 1, -303,-163)');
 });
-$("body").on("mouseout", ".hd", function () {
-  var $svg = $(this).find("svg");
+$('body').on('mouseout', '.hd', function () {
+  var $svg = $(this).find('svg');
   $svg
-    .find("#svg_hd_anchor")
-    .attr("transform", "matrix( 1, 0, 0, 1, -313,-143)");
+    .find('#svg_hd_anchor')
+    .attr('transform', 'matrix( 1, 0, 0, 1, -313,-143)');
 });
 
-$("body").on("mouseover", ".bulk", function () {
-  var $svg = $(this).find("svg");
-  $svg.find("#svg_bulk_anchor").attr("transform", "matrix( 1, 0, 0, 1, 0,10)");
+$('body').on('mouseover', '.bulk', function () {
+  var $svg = $(this).find('svg');
+  $svg.find('#svg_bulk_anchor').attr('transform', 'matrix( 1, 0, 0, 1, 0,10)');
 });
-$("body").on("mouseout", ".bulk", function () {
-  var $svg = $(this).find("svg");
-  $svg.find("#svg_bulk_anchor").attr("transform", "matrix( 1, 0, 0, 1, 0,0)");
+$('body').on('mouseout', '.bulk', function () {
+  var $svg = $(this).find('svg');
+  $svg.find('#svg_bulk_anchor').attr('transform', 'matrix( 1, 0, 0, 1, 0,0)');
 });
 
 function removeStatusBar() {
   setTimeout(function () {
-    $("a").each(function () {
-      if (["fixed_pop", "export"].includes($(this).attr("id"))) return;
-      var reallink = $(this).attr("href");
-      var is_blank = $(this).attr("target") == "_blank";
+    $('a').each(function () {
+      if (['fixed_pop', 'export'].includes($(this).attr('id'))) return;
+      var reallink = $(this).attr('href');
+      var is_blank = $(this).attr('target') == '_blank';
       $(this)
-        .attr("data-realhref", reallink)
-        .css("cursor", "pointer")
-        .removeAttr("href");
+        .attr('data-realhref', reallink)
+        .css('cursor', 'pointer')
+        .removeAttr('href');
       if (is_blank) {
         $(this).click(function () {
-          var link = $(this).attr("data-realhref");
-          window.open(link, "_blank");
+          var link = $(this).attr('data-realhref');
+          window.open(link, '_blank');
         });
       } else {
         $(this).click(function () {
-          var link = $(this).attr("data-realhref");
+          var link = $(this).attr('data-realhref');
           location = link;
         });
       }
@@ -265,50 +238,8 @@ function removeStatusBar() {
 }
 
 function saveQRCode() {
-  var qr_tag_download = document.createElement("a");
-  qr_tag_download.href = $("#qrcode-img img")[0].src;
-  qr_tag_download.download = "qr_code.png";
-  qr_tag_download.click();
-  document.body.removeChild(qr_tag_download);
+  var qr_tag = document.createElement('a');
+  qr_tag.href = $('#qrcode-img img')[0].src;
+  qr_tag.download = 'qr_code.png';
+  qr_tag.click();
 }
-
-function copyQRCode() {}
-
-function shareQRCode() {
-  getCurrentTabUrl().then((current_url) => {
-    $("#btn_facebook_share").attr("href", getFacebookShareUrl(current_url));
-  })
-}
-
-function getFacebookShareUrl(current_url) {
-  var fb_share_url = "http://www.facebook.com/sharer.php?u=";
-  return fb_share_url + current_url;
-}
-
-function copyTextToClipboard(text) {
-  //Create a textbox field where we can insert text to.
-  var copyFrom = document.createElement("textarea");
-
-  //Set the text content to be the text you wished to copy.
-  copyFrom.textContent = text;
-
-  //Append the textbox field into the body as a child.
-  //"execCommand()" only works when there exists selected text, and the text is inside
-  //document.body (meaning the text is part of a valid rendered HTML element).
-  document.body.appendChild(copyFrom);
-
-  //Select all the text!
-  copyFrom.select();
-
-  //Execute command
-  document.execCommand("copy");
-
-  //(Optional) De-select the text using blur().
-  copyFrom.blur();
-
-  //Remove the textbox field from the document.body, so no other JavaScript nor
-  //other elements can get access to this.
-  document.body.removeChild(copyFrom);
-}
-
-shareQRCode();

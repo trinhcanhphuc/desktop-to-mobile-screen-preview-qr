@@ -132,8 +132,7 @@ $(function () {
 
   removeStatusBar();
 
-  $('#btn_save_qr').click(() => saveQRCode());
-
+  $("#btn_save_qr").click(() => saveQRCode());
 });
 
 function renderQRHandler() {
@@ -144,15 +143,16 @@ function renderQRHandler() {
   updateImgHref();
 }
 function updateContentByTabs(tabs) {
-  var href = tabs[0].url;
-  var title = tabs[0].title;
-  var $qrcode_img = $("#qrcode-img");
-  setTimeout(function () {
-    $qrcode_img.html("");
-    renderQR($qrcode_img, img_size, href);
-    updateImgHref();
-  }, 20);
-  $("#qrcode-href").val(href);
+  getCurrentTabUrl().then((current_url) => {
+    var title = tabs[0].title;
+    var $qrcode_img = $("#qrcode-img");
+    setTimeout(function () {
+      $qrcode_img.html("");
+      renderQR($qrcode_img, img_size, current_url);
+      updateImgHref();
+    }, 20);
+    $("#qrcode-href").val(current_url);
+  })
 }
 function renderQR($el, the_size, the_text) {
   var quiet = "0";
@@ -265,8 +265,50 @@ function removeStatusBar() {
 }
 
 function saveQRCode() {
-  var qr_tag_download = document.createElement('a');
-  qr_tag_download.href = $('#qrcode-img img')[0].src;
-  qr_tag_download.download = 'qr_code.png';
+  var qr_tag_download = document.createElement("a");
+  qr_tag_download.href = $("#qrcode-img img")[0].src;
+  qr_tag_download.download = "qr_code.png";
   qr_tag_download.click();
+  document.body.removeChild(qr_tag_download);
 }
+
+function copyQRCode() {}
+
+function shareQRCode() {
+  getCurrentTabUrl().then((current_url) => {
+    $("#btn_facebook_share").attr("href", getFacebookShareUrl(current_url));
+  })
+}
+
+function getFacebookShareUrl(current_url) {
+  var fb_share_url = "http://www.facebook.com/sharer.php?u=";
+  return fb_share_url + current_url;
+}
+
+function copyTextToClipboard(text) {
+  //Create a textbox field where we can insert text to.
+  var copyFrom = document.createElement("textarea");
+
+  //Set the text content to be the text you wished to copy.
+  copyFrom.textContent = text;
+
+  //Append the textbox field into the body as a child.
+  //"execCommand()" only works when there exists selected text, and the text is inside
+  //document.body (meaning the text is part of a valid rendered HTML element).
+  document.body.appendChild(copyFrom);
+
+  //Select all the text!
+  copyFrom.select();
+
+  //Execute command
+  document.execCommand("copy");
+
+  //(Optional) De-select the text using blur().
+  copyFrom.blur();
+
+  //Remove the textbox field from the document.body, so no other JavaScript nor
+  //other elements can get access to this.
+  document.body.removeChild(copyFrom);
+}
+
+shareQRCode();

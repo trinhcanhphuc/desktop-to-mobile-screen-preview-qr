@@ -10,7 +10,7 @@
 
 html,
 body {
-  height: 560px;
+  height: 630px;
   overflow: hidden;
 }
 
@@ -300,4 +300,12 @@ a {
 }
 #fixed_pop:hover {
   opacity: 1;
+}
+
+#share-buttons img {
+  width: 35px;
+  padding: 5px;
+  border: 0;
+  box-shadow: 0;
+  display: inline;
 }

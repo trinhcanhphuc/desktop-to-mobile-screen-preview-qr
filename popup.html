@@ -6,84 +6,22 @@
   <script type='text/javascript' src='assets/js/jquery-3.5.1.min.js'></script>
   <script type='text/javascript' src='assets/js/jquery-qrcode.min.js'></script>
   <link rel='stylesheet' href='assets/css/tailwind.min.css' type='text/css' media='all' />
-  <link rel='stylesheet' href='assets/css/popup.style.css' type='text/css' media='all' />
 </head>
 
 <body>
-  <div class='popup-center'>
-    <div id='qrcode-img'></div>
-    <div id='qrcode-img-buffer'></div>
+  <div class='w-80'>
+    <div id='qrcode-img' class='p-5'></div>
+    <!-- <div id='qrcode-img-buffer'></div> -->
     <div id='qrcode-title'></div>
-    <textarea id='qrcode-href' value=''></textarea>
-    <div class='w-full mt-5'>
-      <button id='qrcode-regenerate' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full'>QR!</button>
+    <div class='w-full px-5'>
+      <textarea id='qrcode-href' class='w-full h-24 border-2 border-black' value=''></textarea>
     </div>
-    <div class='inline-flex text-xs my-5'>
-      <button id='btn_save_qr'>
-        <img src='assets/images/download_icon.svg' class='mx-3 w-5'>
-      </button>
-      <button id='btn_copy_qr'>
-        <img src='assets/images/copy_icon.svg' class='mx-3 w-5'>
-      </button>
-      </a>
-      <button id='btn_share_qr'>
-        <img src='assets/images/share_icon.svg' class='mx-3 w-5'>
-      </button>
+    <div class='w-full my-5 text-center'>
+      <button id='btn_save_qr' class='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full'>Download</button>
     </div>
-    <div id="share-buttons">
-    
-    <!-- Email -->
-    <a href="mailto:?Subject=Simple Share Buttons&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://simplesharebuttons.com">
-        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
-    </a>
- 
-    <!-- Facebook -->
-    <a href='' target='_blank' id='btn_facebook_share'>
-        <img src='assets/images/logo/facebook.png' alt='Facebook' />
-    </a>
-    
-    <!-- LinkedIn -->
-    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://simplesharebuttons.com" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
-    </a>
-    
-    <!-- Pinterest -->
-    <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
-        <img src="https://simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" />
-    </a>
-    
-    <!-- Reddit -->
-    <a href="http://reddit.com/submit?url=https://simplesharebuttons.com&amp;title=Simple Share Buttons" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
-    </a>
-     
-    <!-- Twitter -->
-    <a href="https://twitter.com/share?url=https://simplesharebuttons.com&amp;text=Simple%20Share%20Buttons&amp;hashtags=simplesharebuttons" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
-    </a>
-
-</div>
-    <span class='popup-footer-right'>
-      <span id='ctxt-only'> | <a href='https://www.facebook.com/quickqr' target='_blank'>Facebook Page</a></span>
-    </span>
   </div>
-  <a id='fixed_pop' title='Open in a fixed window...'>
-    <svg viewBox='0 0 438.536 438.536'>
-      <g>
-        <path
-          d='M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-    C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-    h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-    C438.532,59.576,430.49,40.204,414.41,24.123z M365.449,228.402c0,7.994-3.717,13.606-11.136,16.844
-    c-2.471,0.951-4.859,1.427-7.139,1.427c-5.134,0-9.418-1.811-12.847-5.424l-41.11-41.112L140.764,352.599
-    c-3.621,3.614-7.9,5.425-12.85,5.425c-4.952,0-9.235-1.811-12.851-5.425l-29.121-29.126c-3.617-3.61-5.426-7.901-5.426-12.847
-    c0-4.944,1.809-9.229,5.426-12.843l152.462-152.464l-41.113-41.112c-5.902-5.52-7.233-12.178-3.999-19.985
-    c3.234-7.421,8.852-11.136,16.846-11.136h137.037c4.948,0,9.232,1.81,12.854,5.428c3.613,3.614,5.421,7.898,5.421,12.847V228.402z' />
-      </g>
-    </svg>
-
-  </a>
-  <script type='text/javascript' src='assets/js/utils.js'></script>
+  <script type='text/javascript' src='assets/js/utils/browser_tab.js'></script>
+  <script type='text/javascript' src='assets/js/utils/clipboard.js'></script>
   <script type='text/javascript' src='assets/js/popup.js'></script>
 </body>
 

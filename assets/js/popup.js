@@ -19,18 +19,16 @@ $(function () {
 // trigger element handling
 QRCodeTextElement().on('input', function (e) {
   var text_error_ele = $('#input-error');
-  if (select_input_type === 'phone') {
-    if (PHONE_NUMER_PATTERN.test(QRCodeTextElement().val()) == false)
-      text_error_ele.show();
-    else
-      text_error_ele.hide();
-  }
+  if (select_input_type === 'phone' && PHONE_NUMER_PATTERN.test(QRCodeTextElement().val()) == false)
+    text_error_ele.show();
   else
     text_error_ele.hide();
+
   generateQRCode();
 });
 
 selectInputType().change((e) => {
+  $('#input-error').hide();
   select_input_type = e.target.value;
   generateQRCode(select_input_type);
   QRCodeTextElement().val('');

@@ -2,6 +2,8 @@ var fore_bg;
 var back_bg;
 var img_size;
 var is_transparnet_bg;
+var select_input_type = 'url';
+const PHONE_NUMER_PATTERN = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 // init extension
 $(function () {
@@ -15,12 +17,22 @@ $(function () {
 });
 
 // trigger element handling
-QRCodeTextElement().on('keydown keyup input contextmenu', function (e) {
+QRCodeTextElement().on('input', function (e) {
+  var text_error_ele = $('#input-error');
+  if (select_input_type === 'phone') {
+    if (PHONE_NUMER_PATTERN.test(QRCodeTextElement().val()) == false)
+      text_error_ele.show();
+    else
+      text_error_ele.hide();
+  }
+  else
+    text_error_ele.hide();
   generateQRCode();
 });
 
 selectInputType().change((e) => {
-  generateQRCode(e.target.value);
+  select_input_type = e.target.value;
+  generateQRCode(select_input_type);
   QRCodeTextElement().val('');
   QRCodeTextElement().focus().select();
 });

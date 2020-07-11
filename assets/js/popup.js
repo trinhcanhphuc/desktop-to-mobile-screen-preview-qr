@@ -63,11 +63,11 @@ function generateQRCodeByURL(url) {
 }
 
 function generateQRCodeByText(text) {
-
+  generateQRCodeByURL(text);
 }
 
 function generateQRCodeByPhone(phone) {
-
+  generateQRCodeByURL(phone);
 }
 
 function saveQRCode() {

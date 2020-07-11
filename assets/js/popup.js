@@ -72,7 +72,7 @@ function generateQRCodeByPhone(phone) {
 
 function saveQRCode() {
   var qr_tag = document.createElement('a');
-  qr_tag.href = $('#qrcode-img img')[0].src;
+  qr_tag.href = QRCodeImageElement().find('img')[0].src;
   qr_tag.download = 'qr_code.png';
   qr_tag.click();
 }

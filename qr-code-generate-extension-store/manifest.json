@@ -3,11 +3,7 @@
   "version": "0.5",
   "description": "Build QR Code Generate to shave link between any devices",
   "permissions": [
-    "declarativeContent",
-    "storage",
-    "tabs",
-    "activeTab",
-    "contextMenus"
+    "tabs"
   ],
   "background": {
   },

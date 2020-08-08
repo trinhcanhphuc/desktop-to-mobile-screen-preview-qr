@@ -1,13 +1,9 @@
 {
-  "name": "QR Code Generate",
+  "name": "Desktop to Mobile Screen Preview",
   "version": "0.5",
-  "description": "Build QR Code Generate to shave link between any devices",
+  "description": "Quick open website which you are using on desktop by QR Code",
   "permissions": [
-    "declarativeContent",
-    "storage",
-    "tabs",
-    "activeTab",
-    "contextMenus"
+    "tabs"
   ],
   "background": {
   },

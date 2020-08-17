@@ -9,17 +9,21 @@
   <script type='text/javascript' src='assets/js/libs/jquery-qrcode.min.js'></script>
 </head>
 
-<body>
-  <div style='width: 350px;' class='containter has-background-grey'>
-    <div id='qrcode-img'>
+<body class='has-background-white-ter py-5'>
+  <div style='width: 300px;' class='container'>
+    <div id='qrcode-img' class='field mx-5 box' style='width: 250px'>
       <!-- <img src='' /> -->
-      <img src='./assets/images/result.png'>
+      <img src='./assets/images/result.png' class='box'>
     </div>
-    <div id='qrcode-title'></div>
-    <div class=''>
-      <textarea id='qrcode-text' class='' value=''></textarea>
-      <div id='input-error' class=''>Phone number invalid!</div>
-      <button id='btn_save_qr' class='button is-link'>
+    <div class='mx-5'>
+      <div class="field">
+        <div class="control">
+          <textarea id='qrcode-text' class='textarea' placeholder='http://www.google.com' rows=2 value='' style='min-height: 50px; max-height: 200px;'></textarea>
+        </div>
+      </div>
+      <div class="field">
+      </div>
+      <button id='btn_save_qr' class='button is-link field mx-6 px-6'>
         <span class="icon is-small">
           <i class="fas fa-save"></i>
         </span>

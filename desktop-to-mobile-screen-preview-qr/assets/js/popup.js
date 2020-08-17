@@ -18,12 +18,6 @@ $(function () {
 
 // trigger element handling
 QRCodeTextElement().on('input', function (e) {
-  var text_error_ele = $('#input-error');
-  if (select_input_type === 'phone' && PHONE_NUMER_PATTERN.test(QRCodeTextElement().val()) == false)
-    text_error_ele.show();
-  else
-    text_error_ele.hide();
-
   generateQRCode();
 });
 
@@ -52,17 +46,7 @@ function QRCodeImageElement() {
 function generateQRCode(generate_type) {
   var generate_type = generate_type ? generate_type : selectInputType().val();
   var input_value = QRCodeTextElement().val();
-  switch(generate_type){
-    case 'url':
-      generateQRCodeByURL(input_value);
-      break;
-    case 'text':
-      generateQRCodeByText(input_value);
-      break;
-    case 'phone':
-      generateQRCodeByPhone(input_value);
-      break;
-  }
+  generateQRCodeByURL(input_value);
 }
 
 function generateQRCodeByURL(url) {
@@ -70,14 +54,6 @@ function generateQRCodeByURL(url) {
   qr_img_ele.html('');
   renderQR(qr_img_ele, img_size, url);
   QRCodeTextElement().val(url);
-}
-
-function generateQRCodeByText(text) {
-  generateQRCodeByURL(text);
-}
-
-function generateQRCodeByPhone(phone) {
-  generateQRCodeByURL(phone);
 }
 
 function saveQRCode() {

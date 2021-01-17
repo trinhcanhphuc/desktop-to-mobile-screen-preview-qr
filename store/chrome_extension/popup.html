@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <link rel='stylesheet' href='assets/css/bulma/bulma.min.css'>
+  <link rel='stylesheet' href='assets/css/fontawesome/all.min.css'>
+  <script type='text/javascript' src='assets/js/libs/jquery.min.js'></script>
+  <script type='text/javascript' src='assets/js/libs/jquery-qrcode.min.js'></script>
+</head>
+
+<body class='has-background-white-ter pt-3' style='min-height: 530px;'>
+  <div class='container'>
+    <div id='qrcode-img' class='field mx-3 box'>
+      <img src='./assets/images/result.png' class='box'>
+    </div>
+    <div class='mx-3'>
+      <div class="field">
+        <div class="control">
+          <textarea id='qrcode-text' class='textarea' placeholder='http://www.google.com' rows=2 value='' style='height: 100px; min-height: 50px; max-height: 100px; border: none;'></textarea>
+        </div>
+      </div>
+      <div class="field">
+      </div>
+      <button id='btn_save_qr' class='button is-link field mx-6 px-6'>
+        Download
+      </button>
+    </div>
+    <div
+      class='field card px-3 py-2'
+      style='display: flex; justify-content: space-between; position:fixed; bottom: 0;
+      width: 100%;'
+    >
+      <a href='https://www.qrtool.tk/' target='_blank'>About us</a>
+      <a href='https://www.qrtool.tk/#/feedback' target='_blank'>Feedback</a>
+    </div>
+  </div>
+  <script type='text/javascript' src='assets/js/utils/browser_tab.js'></script>
+  <script type='text/javascript' src='assets/js/popup.js'></script>
+</body>
+</html>
